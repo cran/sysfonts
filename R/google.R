@@ -8,11 +8,19 @@
         return(.pkg.env$.google.db);
     
     ## Else, download it
-    baseurl = "https://www.googleapis.com/webfonts/v1/webfonts";
-    key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o";
-    apiurl = sprintf("%s?key=%s", baseurl, key);
-    ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
-    res = fromJSON(ret, FALSE);
+
+    ## Download from Google API, slow and relying on RCurl
+    # baseurl = "https://www.googleapis.com/webfonts/v1/webfonts";
+    # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o";
+    # apiurl = sprintf("%s?key=%s", baseurl, key);
+    # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
+
+    ## Download from my own site, faster but not as up-to-date as Google
+    webfonts = url("http://statr.me/files/webfonts");
+    ret = readLines(webfonts);
+    close(webfonts);
+
+    res = jsonlite::fromJSON(ret, FALSE);
     .pkg.env$.google.db = res;
     return(res);
 }
@@ -47,6 +55,9 @@
 # download font file and return the path of destination
 .download.file = function(url)
 {
+    # Use proxy instead of the original link address
+    url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
+    
     path = file.path(tempdir(), basename(url));
     tryCatch(download.file(url, path, quiet = TRUE, mode = "wb"),
              warning = function(w) NULL,
@@ -62,7 +73,7 @@
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
-#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
+#' This function requires the \pkg{jsonlite} package.
 #' 
 #' @return A character vector of available font family names in Google Fonts
 #' 
@@ -78,8 +89,6 @@
 #' 
 font.families.google = function()
 {
-    if(!require("RCurl"))
-        stop("cannot load 'RCurl' package");
     if(!require("jsonlite"))
         stop("cannot load 'jsonlite' package");
     
@@ -92,7 +101,7 @@ font.families.google = function()
 #' This function will search the Google Fonts repository
 #' (\url{http://www.google.com/fonts}) for a specified
 #' family name, download the proper font files and then add them to R.
-#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
+#' This function requires the \pkg{jsonlite} package.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
 #' @param family family name of the font that will be used in R
@@ -137,8 +146,6 @@ font.families.google = function()
 font.add.google = function(name, family = name, regular.wt = 400,
                            bold.wt = 700)
 {
-    if(!require("RCurl"))
-        stop("cannot load 'RCurl' package");
     if(!require("jsonlite"))
         stop("cannot load 'jsonlite' package");
     

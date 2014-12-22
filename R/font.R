@@ -20,7 +20,8 @@
         } else {
             path = list.dirs(c("/usr/share/fonts",
                                "/usr/local/share/fonts",
-                               "~/.fonts"));
+                               "~/.fonts",
+                               "~/.local/share/fonts"));
         }
     } else stop("unknown OS type");
     .pkg.env$.font.path = path;
@@ -44,8 +45,8 @@
 #'       and \code{~/Library/Fonts} and their subdirectories
 #'
 #' \item For Linux and other Unix-like OS, \code{/usr/share/fonts},
-#'       \code{/usr/local/share/fonts}, \code{~/.fonts}, and
-#'       their subdirectories
+#'       \code{/usr/local/share/fonts}, \code{~/.fonts},
+#'       \code{~/.local/share/fonts}, and their subdirectories
 #' }
 #' 
 #' @seealso See \code{\link{font.add}()} for details about how
@@ -293,7 +294,7 @@ font.add = function(family,
 # use font.add() to add default fonts
 .add.default.fonts = function()
 {
-    packageStartupMessage("Loading fonts...");
+    # packageStartupMessage("Loading fonts...");
 
     lib.loc = if("sysfonts" %in% loadedNamespaces())
                   dirname(getNamespaceInfo("sysfonts", "path"))
@@ -338,7 +339,7 @@ font.add = function(family,
     lst[["mono"]][["symbol"]] = lst[["serif"]][["italic"]];
     .pkg.env$.font.list = lst;
     
-    packageStartupMessage("Loading fonts finished");
+    # packageStartupMessage("Loading fonts finished");
     
     invisible(NULL);
 }
