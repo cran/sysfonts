@@ -3,6 +3,8 @@
 
 .google.font.db = function()
 {
+    ## we need to use packages jsonlite and RCurl here
+    
     ## If database already exists, return it
     if(!is.null(.pkg.env$.google.db))
         return(.pkg.env$.google.db);
@@ -16,11 +18,8 @@
     # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
 
     ## Download from my own site, faster but not as up-to-date as Google
-    webfonts = url("http://statr.me/files/webfonts");
-    ret = readLines(webfonts);
-    close(webfonts);
-
-    res = jsonlite::fromJSON(ret, FALSE);
+    doc = RCurl::getURL("http://statr.me/files/webfonts");
+    res = jsonlite::fromJSON(doc, FALSE);
     .pkg.env$.google.db = res;
     return(res);
 }
@@ -53,16 +52,20 @@
 }
 
 # download font file and return the path of destination
-.download.file = function(url)
+.download.file = function(url, repo)
 {
+    ## we need to use RCurl package here
+    
     # Use proxy instead of the original link address
-    url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
+    if(repo == "useso")
+        url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
     
     path = file.path(tempdir(), basename(url));
-    tryCatch(download.file(url, path, quiet = TRUE, mode = "wb"),
-             warning = function(w) NULL,
-             error = function(e) NULL);
-    if(!file.exists(path)) stop("failed to download font file");
+    f = RCurl::CFILE(path, mode = "wb");
+    ret = RCurl::curlPerform(url = url, writedata = f@ref);
+    RCurl::close(f);
+
+    if(ret) stop("failed to download font file");
     return(path);
 }
 
@@ -73,7 +76,7 @@
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
-#' This function requires the \pkg{jsonlite} package.
+#' This function requires the \pkg{jsonlite} and \pkg{RCurl} packages.
 #' 
 #' @return A character vector of available font family names in Google Fonts
 #' 
@@ -89,9 +92,6 @@
 #' 
 font.families.google = function()
 {
-    if(!require("jsonlite"))
-        stop("cannot load 'jsonlite' package");
-    
     return(.google.font.list()$family);
 }
 
@@ -101,12 +101,17 @@ font.families.google = function()
 #' This function will search the Google Fonts repository
 #' (\url{http://www.google.com/fonts}) for a specified
 #' family name, download the proper font files and then add them to R.
-#' This function requires the \pkg{jsonlite} package.
+#' This function requires the \pkg{jsonlite} and \pkg{RCurl} packages.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
 #' @param family family name of the font that will be used in R
 #' @param regular.wt font weight for the regular font face, usually 400
 #' @param bold.wt font weight for the bold font face, usually 700
+#' @param repo the site to download fonts from. "google" indicates
+#'             downloading from the original Google Fonts repository.
+#'             "useso" indicates downloading from a proxy server
+#'             provided by \url{http://fonts.useso.com}. If the default
+#'             choice "google" fails, try to set \code{repo = "useso"}
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts
 #'          repository (\url{http://www.google.com/fonts}).
@@ -144,12 +149,11 @@ font.families.google = function()
 #' 
 #' }
 font.add.google = function(name, family = name, regular.wt = 400,
-                           bold.wt = 700)
-{
-    if(!require("jsonlite"))
-        stop("cannot load 'jsonlite' package");
-    
-    name = as.character(name);
+                           bold.wt = 700, repo = c("google", "useso"))
+{   
+    name = as.character(name)[1];
+    family = as.character(family)[1];
+    repo = as.character(repo)[1];
     
     db = .google.font.db();
     ind = .search.db(name);
@@ -172,19 +176,19 @@ font.add.google = function(name, family = name, regular.wt = 400,
     if(is.null(r.url))
         stop(sprintf("regular(weight=%d) variant of '%s' font not found",
                      regular.wt, name));
-    r.file = .download.file(r.url);
+    r.file = .download.file(r.url, repo);
     
     ## download bold font face
     b.url = font$files[[bold]];
-    b.file = if(is.null(b.url)) NULL else .download.file(b.url);
+    b.file = if(is.null(b.url)) NULL else .download.file(b.url, repo);
     
     ## download italic font face
     i.url = font$files[[italic]];
-    i.file = if(is.null(i.url)) NULL else .download.file(i.url);
+    i.file = if(is.null(i.url)) NULL else .download.file(i.url, repo);
     
     ## download bold-italic font face
     bi.url = font$files[[bolditalic]];
-    bi.file = if(is.null(bi.url)) NULL else .download.file(bi.url);
+    bi.file = if(is.null(bi.url)) NULL else .download.file(bi.url, repo);
 
     font.add(family, r.file, b.file, i.file, bi.file);
 }

@@ -1,8 +1,8 @@
-484a257ffb99e70ef0786d9f4f76b44e *DESCRIPTION
+64b5e9ccd18271d22068a9d978899f6d *DESCRIPTION
 db4dedd16dabc6a17eb9fcd5bd4fc212 *NAMESPACE
-02121de471897abf1c52700a63aef012 *NEWS
+009e614f1cfbb877d8dabd6d1b0a8d04 *NEWS
 41298491529221adf3cf78bbbc747f71 *R/font.R
-c7397a4e06de7a317d9f8a2e1fc325ce *R/google.R
+99de4d9c03a34e2580523d44f8133d08 *R/google.R
 490d7a87e913cf03416ea89e6982d38f *R/zzz.R
 a12e4edc13b8ff35038d419f14456d54 *configure
 775f569771c65cb89300227a622e3d80 *configure.ac
@@ -24,9 +24,9 @@ f8799b2546545b68dc0b9a6fc307bb2b *inst/fonts/LiberationSans-Italic.ttf
 5be4751cd0b2a617daac758f8028afd2 *inst/fonts/LiberationSerif-Regular.ttf
 9e3cffc28e2ebe189f5639d09babf6bb *inst/fonts/License.txt
 87199c27a3b535730806052127dffc79 *man/font.add.Rd
-8c5da82a398cbec108b1ae096142053b *man/font.add.google.Rd
+b61ccc533c012b08065e5d026ce0d546 *man/font.add.google.Rd
 d655e6fdcd3fadfbfc11ee4e565e0c1b *man/font.families.Rd
-a4d7dc83adb519a8be644aa203baa14f *man/font.families.google.Rd
+27224a4060748f9ecfc6a1e92ac20ee1 *man/font.families.google.Rd
 1659effb55944f477182a99ec5f2fcfa *man/font.files.Rd
 1be72d167f3a309067fb3d9363680d28 *man/font.paths.Rd
 81db896739ecc963507902bed0ebcfaa *src/Makevars.in
