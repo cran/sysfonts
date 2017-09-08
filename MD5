@@ -1,8 +1,8 @@
-289077d612e63e6f8793c8d8b396d614 *DESCRIPTION
+f2f948f7244a453ef6f58ef86d752d47 *DESCRIPTION
 38431846d1647e63cb93764aa7666f9b *NAMESPACE
 4a26a72dab6de9bd9c2cfa73bd010c1d *R/deprecate.R
 d82c9f405d179e00f2ba6458101feb75 *R/font.R
-bd7c238f1e3c2dda983e86584048920b *R/google.R
+5d9228c38b728e6177aff324c4ecaffc *R/google.R
 2fb7bfe7db8f01e455e9c7e28917622e *R/zzz.R
 6ae6d26d431ba0d2141ccde7e76b5663 *cleanup
 a12e4edc13b8ff35038d419f14456d54 *configure
@@ -10,7 +10,7 @@ a12e4edc13b8ff35038d419f14456d54 *configure
 68b329da9893e34099c7d8ad5cb9c940 *configure.win
 044fb0ca53fca38598ebc394f04b60d4 *inst/AUTHORS
 a1a5312d656e96552fd3b95c3b0a8b3a *inst/COPYRIGHTS
-7bc8207e95bef30009fa8751eb5ec726 *inst/NEWS.Rd
+43331071748027516842319e93995073 *inst/NEWS.Rd
 79de6eec3385446c9765e1d0fe612098 *inst/fonts/AUTHORS
 47b4f89a0c52662b97582ebc0bda361d *inst/fonts/LiberationMono-Bold.ttf
 4aea0d45b86b675f07e88a51c323bfa6 *inst/fonts/LiberationMono-BoldItalic.ttf
