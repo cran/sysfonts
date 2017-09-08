@@ -75,7 +75,7 @@ search_db = function(family)
 }
 
 # Download font file and return the path of destination
-download_font_file = function(url, repo = "http://fonts.gstatic.com/")
+download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
 {
     ## We need to use curl package here
     
@@ -88,18 +88,18 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/")
             
             ## Try the user-specified repository
             {
-                curl::curl_download(url_repo, dest)
+                curl::curl_download(url_repo, dest, handle = handle)
             },
             
             ## If not successful, use the default one
             error = function(e) {
                 message("font not found in the user-provided repo, try default repo...")
-                curl::curl_download(url, dest)
+                curl::curl_download(url, dest, handle = handle)
             }
             
         )
     } else {
-        curl::curl_download(url, dest)
+        curl::curl_download(url, dest, handle = handle)
     }
     
     dest
@@ -109,6 +109,9 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/")
 
 #' List Font Families Available in Google Fonts
 #' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
+#' 
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
@@ -116,23 +119,33 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/")
 #' 
 #' @return A character vector of available font family names in Google Fonts.
 #' 
-#' @seealso \code{\link{font.add.google}()}
+#' @seealso \code{\link{font_add_google}()}
 #' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples \dontrun{
-#' font.families.google()
+#' font_families_google()
 #' }
 #' 
-font.families.google = function()
+font_families_google = function()
 {
     google_font_list()$family
 }
 
+#' @rdname font_families_google
+#' @export
+font.families.google = function()
+{
+    deprecate_message_once("font.families.google()", "font_families_google()")
+    font_families_google()
+}
 
 #' Load Google Fonts into 'sysfonts'
+#' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
 #' 
 #' This function will search the Google Fonts repository
 #' (\url{https://fonts.google.com/}) for a specified
@@ -146,6 +159,7 @@ font.families.google = function()
 #' @param repo the site that hosts the font files. Default is the official
 #'             repository \code{http://fonts.gstatic.com/} provided by
 #'             Google Fonts.
+#' @param handle a curl handle object passed to \code{curl::curl_download()}.
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts
 #'          repository (\url{https://fonts.google.com/}).
@@ -159,12 +173,12 @@ font.families.google = function()
 #' 
 #' @export
 #' 
-#' @seealso \code{\link{font.families.google}()}
+#' @seealso \code{\link{font_families_google}()}
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples \dontrun{
-#' font.add.google("Alegreya Sans", "aleg")
+#' font_add_google("Alegreya Sans", "aleg")
 #' 
 #' if(require(showtext))
 #' {
@@ -182,8 +196,9 @@ font.families.google = function()
 #' }
 #' 
 #' }
-font.add.google = function(name, family = name, regular.wt = 400,
-                           bold.wt = 700, repo = "http://fonts.gstatic.com/")
+font_add_google = function(name, family = name, regular.wt = 400,
+                           bold.wt = 700, repo = "http://fonts.gstatic.com/",
+                           handle = curl::new_handle())
 {   
     name   = as.character(name)[1]
     family = as.character(family)[1]
@@ -209,19 +224,29 @@ font.add.google = function(name, family = name, regular.wt = 400,
     r.url = font$files[[regular]]
     if(is.null(r.url))
         stop(sprintf("regular (weight=%d) variant of '%s' font not found", regular.wt, name))
-    r.file = download_font_file(r.url, repo)
+    r.file = download_font_file(r.url, repo, handle = handle)
     
     ## Download bold font face
     b.url = font$files[[bold]]
-    b.file = if(is.null(b.url)) NULL else download_font_file(b.url, repo)
+    b.file = if(is.null(b.url)) NULL else download_font_file(b.url, repo, handle = handle)
     
     ## Download italic font face
     i.url = font$files[[italic]]
-    i.file = if(is.null(i.url)) NULL else download_font_file(i.url, repo)
+    i.file = if(is.null(i.url)) NULL else download_font_file(i.url, repo, handle = handle)
     
     ## Download bold-italic font face
     bi.url = font$files[[bolditalic]]
-    bi.file = if(is.null(bi.url)) NULL else download_font_file(bi.url, repo)
+    bi.file = if(is.null(bi.url)) NULL else download_font_file(bi.url, repo, handle = handle)
 
     font.add(family, r.file, b.file, i.file, bi.file)
+}
+
+#' @rdname font_add_google
+#' @export
+font.add.google = function(name, family = name, regular.wt = 400,
+                           bold.wt = 700, repo = "http://fonts.gstatic.com/",
+                           handle = curl::new_handle())
+{
+    deprecate_message_once("font.add.google()", "font_add_google()")
+    font_add_google(name, family, regular.wt, bold.wt, repo, handle)
 }
