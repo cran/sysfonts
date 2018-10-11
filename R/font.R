@@ -65,7 +65,7 @@ add_default_font_paths = function()
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 font_paths = function(new)
 {
     if(!missing(new))
@@ -108,7 +108,7 @@ font.paths = function(new)
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples font_families()
 #' 
@@ -134,19 +134,39 @@ font.families = function()
 #' loaded by \code{\link{font_add}()}.
 #' Currently supported formats include TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
-#' @return A character vector of font filenames.
+#' @return A data frame containing the following information of the font files:
+#' \item{path}{The directory that the font file is located in.}
+#' \item{file}{File name of the font.}
+#' \item{family}{Family name.}
+#' \item{face}{Font face.}
+#' \item{version}{Version of the font.}
+#' \item{ps_name}{PostScript font name.}
 #' 
 #' @seealso \code{\link{font_paths}()}, \code{\link{font_add}()}
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
-#' @examples font_files()
+#' @examples \dontrun{
+#' font_files()
+#' }
 #' 
 font_files = function()
 {
-    list.files(font_paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
+    files = list.files(font_paths(), "\\.tt[cf]$|\\.otf$", full.names = TRUE,
+                       ignore.case = TRUE)
+    fnames = sapply(files, function(f) .Call("font_name", f, PACKAGE = "sysfonts"),
+                    USE.NAMES = FALSE)
+    data.frame(
+        path    = dirname(files),
+        file    = basename(files),
+        family  = fnames[1, ],
+        face    = fnames[2, ],
+        version = fnames[3, ],
+        ps_name = fnames[4, ],
+        stringsAsFactors = FALSE
+    )
 }
 
 #' @rdname font_files
@@ -236,7 +256,7 @@ check_font_path = function(path, type)
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' ## Example: download the font file of WenQuanYi Micro Hei,

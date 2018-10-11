@@ -10,7 +10,13 @@ font_files()
 font.files()
 }
 \value{
-A character vector of font filenames.
+A data frame containing the following information of the font files:
+\item{path}{The directory that the font file is located in.}
+\item{file}{File name of the font.}
+\item{family}{Family name.}
+\item{face}{Font face.}
+\item{version}{Version of the font.}
+\item{ps_name}{PostScript font name.}
 }
 \description{
 The two versions of this function are equivalent, but the
@@ -21,12 +27,14 @@ loaded by \code{\link{font_add}()}.
 Currently supported formats include TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 }
 \examples{
+\dontrun{
 font_files()
+}
 
 }
 \seealso{
 \code{\link{font_paths}()}, \code{\link{font_add}()}
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }
