@@ -1,7 +1,7 @@
-fb4f1b726643cf0d67422b044675651f *DESCRIPTION
+8c0b280b2abe8a0db5af0de8e7016e8d *DESCRIPTION
 3c3f74a77fe1f4fd8168b1c8181ac9d3 *NAMESPACE
 4a26a72dab6de9bd9c2cfa73bd010c1d *R/deprecate.R
-42799a2b43f0a7706c47a53960ab91b2 *R/font.R
+0c02923fc8c22c7dbcd1f190e773673e *R/font.R
 73abd117932536fa30a2bbcc8417401c *R/google.R
 2fb7bfe7db8f01e455e9c7e28917622e *R/zzz.R
 6ae6d26d431ba0d2141ccde7e76b5663 *cleanup
@@ -10,7 +10,7 @@ a12e4edc13b8ff35038d419f14456d54 *configure
 68b329da9893e34099c7d8ad5cb9c940 *configure.win
 044fb0ca53fca38598ebc394f04b60d4 *inst/AUTHORS
 a1a5312d656e96552fd3b95c3b0a8b3a *inst/COPYRIGHTS
-58f58ebc2b80b639c089b55dd83a51f9 *inst/NEWS.Rd
+9a5ecfbea08c8117be4489213bf2ebb7 *inst/NEWS.Rd
 79de6eec3385446c9765e1d0fe612098 *inst/fonts/AUTHORS
 47b4f89a0c52662b97582ebc0bda361d *inst/fonts/LiberationMono-Bold.ttf
 4aea0d45b86b675f07e88a51c323bfa6 *inst/fonts/LiberationMono-BoldItalic.ttf
@@ -25,7 +25,7 @@ a1a5312d656e96552fd3b95c3b0a8b3a *inst/COPYRIGHTS
 60eacc0858740c7ead0492cabc7d3ab1 *inst/fonts/LiberationSerif-Italic.ttf
 6411555d1a0574003765873bcc6fd0ac *inst/fonts/LiberationSerif-Regular.ttf
 9e3cffc28e2ebe189f5639d09babf6bb *inst/fonts/License.txt
-b5183bdec4a4f906bbdabd559ebd7b09 *inst/fonts/webfonts.bz2
+da45211581611fb737af3292828f9214 *inst/fonts/webfonts.bz2
 24073995ed2ad56e711a5671dfa1c5d2 *man/font_add.Rd
 c8680bbed63c5ab2cd29e3d327a87368 *man/font_add_google.Rd
 3a8559732a6d8e7a2f8220db83a9a04a *man/font_families.Rd

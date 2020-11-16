@@ -22,7 +22,8 @@ add_default_font_paths = function()
     } else if(.Platform$OS.type == "unix") {
         if(Sys.info()["sysname"] == "Darwin")
         {
-            path = list.dirs(c("/Library/Fonts",
+            path = list.dirs(c("/System/Library/Fonts",
+                               "/Library/Fonts",
                                "~/Library/Fonts"))
         } else {
             path = list.dirs(c("/usr/share/fonts",
@@ -362,15 +363,11 @@ font.add = function(family,
 add_default_fonts = function()
 {
     # packageStartupMessage("Loading fonts...")
-
-    lib.loc = if("sysfonts" %in% loadedNamespaces())
-                  dirname(getNamespaceInfo("sysfonts", "path"))
-              else NULL
     
     default_fonts_path = function(family, face)
     {
         system.file("fonts", sprintf("Liberation%s-%s.ttf", family, face),
-                    package = "sysfonts", lib.loc = lib.loc)
+                    package = "sysfonts")
     }
 
     sans.r   = default_fonts_path("Sans",  "Regular")
