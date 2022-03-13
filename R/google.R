@@ -5,8 +5,8 @@ google_font_db = function(db_cache = TRUE, handle = curl::new_handle())
 {
     ## We need to use packages jsonlite and curl here
     
-    ## If database already exists, return it
-    if(!is.null(.pkg.env$.google.db))
+    ## If database already exists and db_cache = TRUE, return it
+    if(!is.null(.pkg.env$.google.db) && db_cache)
         return(.pkg.env$.google.db)
     
     ## Else, download it
@@ -211,7 +211,9 @@ font.families.google = function()
 #' This function requires the \pkg{jsonlite} and \pkg{curl} packages.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
-#' @param family family name of the font that will be used in R
+#' @param family specifies the family name of this font in R. This can be any string,
+#'               not necessarily the same as \code{name}. The value of this parameter
+#'               will be used in R plotting functions. See the example code below.
 #' @param regular.wt font weight for the regular font face, usually 400
 #' @param bold.wt font weight for the bold font face, usually 700
 #' @param repo the site that hosts the font files. Default is the official
@@ -223,7 +225,7 @@ font.families.google = function()
 #'                 are retrieved from the Google Fonts API.
 #' @param handle a curl handle object passed to \code{curl::curl_download()}.
 #' 
-#' @details There are hundreds of open source fonts in the Google Fonts
+#' @details There are thousands of open source fonts in the Google Fonts
 #'          repository (\url{https://fonts.google.com/}).
 #'          This function will try to search the font family specified
 #'          by the \code{name} argument, and then automatically
@@ -267,7 +269,8 @@ font_add_google = function(name, family = name, regular.wt = 400,
     repo   = as.character(repo)[1]
     
     db = google_font_db(db_cache, handle)
-    ind = search_db(name, db_cache, handle)
+    # Use db_cache = TRUE since the database has already been updated in google_font_db()
+    ind = search_db(name, db_cache = TRUE, handle = handle)
     font = db[[2]][[ind]]
     
     ## Names of type variants to search in the db

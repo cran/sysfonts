@@ -1,6 +1,39 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.8}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item \code{font_add()} now gives a warning if the parameters are not
+            length-one vectors.
+      \item C functions are now called using registered native symbols.
+    }
+  }
+}
+
+\section{Changes in sysfonts version 0.8.7}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated Google Fonts database.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Updated the documentation for \code{font_add_google()}.
+      \item Fixed the bug that \code{db_cache = FALSE} is not effective in
+            the second call of \code{font_add_google()}.
+    }
+  }
+}
+
+\section{Changes in sysfonts version 0.8.6}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Supported UCRT on Windows, thanks to Tomas Kalibera and Uwe Ligges.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.5}{
   \subsection{BUG FIXES}{
     \itemize{
