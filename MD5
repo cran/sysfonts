@@ -1,4 +1,4 @@
-24e313d7d8b962efc2257a29f43b2be9 *DESCRIPTION
+835abdceeeadf62aa08885fc7151d0ca *DESCRIPTION
 8b6c7c0dbaa68572c30533c65b25be3c *NAMESPACE
 4a26a72dab6de9bd9c2cfa73bd010c1d *R/deprecate.R
 32339ca4c38bc80ee069fa8b40ff6ebe *R/font.R
@@ -10,7 +10,7 @@ cd0dfb17eb1955ed0cea43d3affa97d9 *configure.ac
 68b329da9893e34099c7d8ad5cb9c940 *configure.win
 044fb0ca53fca38598ebc394f04b60d4 *inst/AUTHORS
 a1a5312d656e96552fd3b95c3b0a8b3a *inst/COPYRIGHTS
-7af40d33d33de390d0ee4e8a4cb9834b *inst/NEWS.Rd
+860e5026ba04a942fe9c355fd7a1605a *inst/NEWS.Rd
 79de6eec3385446c9765e1d0fe612098 *inst/fonts/AUTHORS
 47b4f89a0c52662b97582ebc0bda361d *inst/fonts/LiberationMono-Bold.ttf
 4aea0d45b86b675f07e88a51c323bfa6 *inst/fonts/LiberationMono-BoldItalic.ttf
@@ -25,7 +25,7 @@ a1a5312d656e96552fd3b95c3b0a8b3a *inst/COPYRIGHTS
 60eacc0858740c7ead0492cabc7d3ab1 *inst/fonts/LiberationSerif-Italic.ttf
 6411555d1a0574003765873bcc6fd0ac *inst/fonts/LiberationSerif-Regular.ttf
 9e3cffc28e2ebe189f5639d09babf6bb *inst/fonts/License.txt
-5626da5978f5fe0c949d1614ce027d4e *inst/fonts/webfonts.bz2
+9760bd74d388a41d126eacf53cc88f35 *inst/fonts/webfonts.bz2
 24073995ed2ad56e711a5671dfa1c5d2 *man/font_add.Rd
 1a2f2b242be790fea6ec819e046862f8 *man/font_add_google.Rd
 3a8559732a6d8e7a2f8220db83a9a04a *man/font_families.Rd
@@ -34,7 +34,7 @@ f067cbebcae63da53d4e911c67eb5467 *man/font_files.Rd
 1494498b404bb72c85da59ec65a6d823 *man/font_info_google.Rd
 a773d19139687f8603f6a1eea5652f07 *man/font_paths.Rd
 81db896739ecc963507902bed0ebcfaa *src/Makevars.in
-949c8e7183412092ea7ffa65e5eb75ab *src/Makevars.ucrt
+fc2b6563c40308af2f5de1e55ba9bfee *src/Makevars.ucrt
 226158469f65bf22b094b5e5aebafc4d *src/Makevars.win
 9b29abfa7ce44a3dad216f5c8fe9a9c0 *src/font_name.c
 d33093f7fbdc2b23d2cfb8c8b93e7bc6 *src/register_routines.c
